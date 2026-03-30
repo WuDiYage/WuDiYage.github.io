@@ -32,7 +32,7 @@ if (screen.width >= 768) {
 	]).then(() => {
 		initWidget({
 			waifuPath: live2d_path + "waifu-tips.json",
-			cdnPath: "https://cdn.jsdelivr.net/gh/WuDiYage/live2d-waifu-1@v1/",
+			cdnPath: "https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/",
 			tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
 		});
 	});
