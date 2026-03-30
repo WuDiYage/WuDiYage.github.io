@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WuDiYage's Blog</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #2c3e50;
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    header p { color: #aaa; font-size: 0.95rem; }
+    main { flex: 1; max-width: 800px; margin: 2rem auto; padding: 0 1rem; width: 100%; }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .card h2 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .card h2 a { color: #2c3e50; text-decoration: none; }
+    .card h2 a:hover { color: #3498db; }
+    .card .date { color: #999; font-size: 0.85rem; margin-bottom: 0.75rem; }
+    .card p { color: #666; line-height: 1.6; }
+    footer {
+      background: #2c3e50;
+      color: #aaa;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+    }
+    footer a { color: #3498db; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>WuDiYage's Blog</h1>
+  <p>Welcome to my digital garden 🌱</p>
+</header>
+
+<main>
+  <div class="card">
+    <h2><a href="./archives/">Archive</a></h2>
+    <p class="date">Browse all posts by date</p>
+    <p>View the complete archive of all blog posts, organized chronologically.</p>
+  </div>
+
+  <div class="card">
+    <h2><a href="./2026/">2026 Posts</a></h2>
+    <p class="date">Latest</p>
+    <p>Articles and notes from 2026.</p>
+  </div>
+</main>
+
+<footer>
+  <p>Powered by <a href="https://pages.github.com/">GitHub Pages</a></p>
+</footer>
+
+<!-- live2d 看板娘 -->
+<link rel="stylesheet" href="./live2d-waifu/waifu.css">
+<script src="./live2d-waifu/autoload.js"></script>
+
+</body>
+</html>
