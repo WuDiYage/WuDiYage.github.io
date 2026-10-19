@@ -5,11 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WuDiYage's Blog</title>
   <style>
+    /* Self-hosted fonts — no external requests, works offline & fast in China */
+    @font-face {
+      font-family: 'Lora';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('assets/fonts/lora-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Lora';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('assets/fonts/lora-700.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Noto Serif SC';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('assets/fonts/noto-serif-sc-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Noto Serif SC';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('assets/fonts/noto-serif-sc-700.woff2') format('woff2');
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --serif: "Lora", "Noto Serif SC", "Songti SC", "SimSun", "STSong", serif;
+      --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+      --ink: #0e1626;
+      --ink-deep: #0a101c;
+      --line: rgba(255, 255, 255, 0.08);
+      --gold: #e6c07b;
+      --text: #e8e6e1;
+      --body: #c8ced6;
+      --dim: #96a0b2;
+      --faint: #6b7280;
+    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "Microsoft YaHei", sans-serif;
       background: #0b1220 url("./8K.png") center / cover no-repeat fixed;
-      color: #333;
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -60,38 +101,50 @@
 
     header, main, footer { position: relative; z-index: 1; }
     header {
-      background: rgba(20, 32, 52, 0.85);
-      color: #fff;
-      padding: 2rem;
+      background: rgba(10, 16, 28, 0.72);
+      color: var(--text);
+      padding: 2.25rem 2rem;
       text-align: center;
       backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
     }
-    header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    header p { color: #aaa; font-size: 0.95rem; }
+    header h1 { font-family: var(--serif); font-size: 2rem; margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+    header h1::after {
+      content: ""; display: block; width: 2.5rem; height: 1px;
+      background: var(--gold); margin: 0.75rem auto 0;
+    }
+    header p { color: var(--dim); font-size: 0.95rem; }
     main { flex: 1; max-width: 800px; margin: 2rem auto; padding: 0 1rem; width: 100%; }
     .card {
-      background: rgba(255, 255, 255, 0.94);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      transition: transform 0.2s;
+      background: rgba(14, 22, 38, 0.92);
+      border: 1px solid var(--line);
+      border-left: 2px solid rgba(230, 192, 123, 0.4);
+      border-radius: 6px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+      transition: border-color 0.25s, box-shadow 0.25s;
     }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
-    .card h2 { font-size: 1.3rem; margin-bottom: 0.5rem; }
-    .card h2 a { color: #2c3e50; text-decoration: none; }
-    .card h2 a:hover { color: #3498db; }
-    .card .date { color: #999; font-size: 0.85rem; margin-bottom: 0.75rem; }
-    .card p { color: #666; line-height: 1.6; }
+    .card:hover {
+      border-color: rgba(230, 192, 123, 0.45);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(230, 192, 123, 0.15);
+    }
+    .card h2 { font-size: 1.35rem; margin-bottom: 0.4rem; }
+    .card h2 a { color: var(--text); text-decoration: none; font-family: var(--serif); font-weight: 600; }
+    .card h2 a:hover { color: var(--gold); }
+    .card .date { color: var(--faint); font-family: var(--mono); font-size: 0.8rem; margin-bottom: 0.75rem; }
+    .card .date::before { content: "✦ "; color: var(--gold); }
+    .card p { color: var(--body); line-height: 1.7; }
     footer {
-      background: rgba(20, 32, 52, 0.85);
-      color: #aaa;
+      background: rgba(10, 16, 28, 0.72);
+      color: var(--faint);
       text-align: center;
       padding: 1.5rem;
       font-size: 0.85rem;
       backdrop-filter: blur(6px);
+      border-top: 1px solid var(--line);
     }
-    footer a { color: #3498db; text-decoration: none; }
+    footer a { color: var(--gold); text-decoration: none; }
   </style>
 </head>
 <body>
