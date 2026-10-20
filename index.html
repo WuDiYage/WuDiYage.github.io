@@ -114,6 +114,46 @@
       background: var(--gold); margin: 0.75rem auto 0;
     }
     header p { color: var(--dim); font-size: 0.95rem; }
+    .topnav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .topnav .tab {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--dim);
+      padding: 0.5rem 1.75rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      font-family: inherit;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .topnav .tab:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+    .topnav .tab.active {
+      color: var(--gold);
+      border-color: var(--gold);
+      background: rgba(230, 192, 123, 0.08);
+    }
+    .fate-panel {
+      flex: 1;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .fate-panel iframe {
+      width: 100%;
+      height: calc(100vh - 170px);
+      min-height: 480px;
+      border: none;
+      display: block;
+      background: #0b1220;
+    }
     main { flex: 1; max-width: 800px; margin: 2rem auto; padding: 0 1rem; width: 100%; }
     .card {
       background: rgba(14, 22, 38, 0.92);
@@ -157,11 +197,21 @@
 </div>
 
 <header>
+  <nav class="topnav">
+    <button class="tab active" data-tab="articles" type="button">文章</button>
+    <button class="tab" data-tab="fate" type="button">算命</button>
+  </nav>
   <h1>WuDiYage's Blog</h1>
   <p>Welcome to my digital garden 🌱</p>
 </header>
 
-<main>
+<main id="tab-articles">
+  <div class="card">
+    <h2><a href="./2026/10/15/understand-ai/index.html">从零了解AI(专业向非科普向)</a></h2>
+    <p class="date">2026-10-15</p>
+    <p>从函数拟合讲到 Transformer 与大模型，建立一套专业向的认知框架。</p>
+  </div>
+
   <div class="card">
     <h2><a href="./2026/03/26/adjust-image-tone-clarity/index.html">AI的SKILL是什么</a></h2>
     <p class="date">2026-10-15</p>
@@ -175,9 +225,35 @@
   </div>
 </main>
 
+<main id="tab-fate" class="fate-panel" hidden>
+  <iframe title="算命"></iframe>
+</main>
+
 <footer>
   <p>Powered by <a href="https://pages.github.com/">GitHub Pages</a></p>
 </footer>
+
+<!-- 顶部导航：文章 / 算命 -->
+<script>
+  (function () {
+    const tabs = document.querySelectorAll(".topnav .tab");
+    const articles = document.getElementById("tab-articles");
+    const fate = document.getElementById("tab-fate");
+    const frame = fate ? fate.querySelector("iframe") : null;
+    tabs.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tabs.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const name = btn.dataset.tab;
+        articles.hidden = name !== "articles";
+        fate.hidden = name !== "fate";
+        if (name === "fate" && frame && !frame.getAttribute("src")) {
+          frame.src = "./Fate/web/index.html";
+        }
+      });
+    });
+  })();
+</script>
 
 <!-- live2d 看板娘 -->
 <script src="./live2d-waifu/autoload.js"></script>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>从零了解AI(专业向非科普向) - WuDiYage's Blog</title>
+  <style>
+    /* Self-hosted fonts — no external requests, works offline & fast in China */
+    @font-face {
+      font-family: 'Lora';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('../../../../assets/fonts/lora-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Lora';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('../../../../assets/fonts/lora-700.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Noto Serif SC';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('../../../../assets/fonts/noto-serif-sc-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Noto Serif SC';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('../../../../assets/fonts/noto-serif-sc-700.woff2') format('woff2');
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --serif: "Lora", "Noto Serif SC", "Songti SC", "SimSun", "STSong", serif;
+      --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+      --ink: #0e1626;
+      --ink-deep: #0a101c;
+      --line: rgba(255, 255, 255, 0.08);
+      --gold: #e6c07b;
+      --text: #e8e6e1;
+      --body: #c8ced6;
+      --dim: #96a0b2;
+      --faint: #6b7280;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "Microsoft YaHei", sans-serif;
+      background: #0b1220 url("../../../../bg-space.jpg") center / cover no-repeat fixed;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .starfall {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; overflow: hidden; opacity: 0.7;
+    }
+    .starfall span {
+      position: absolute; top: -50px; width: 2px; height: 2px;
+      background: #fff; border-radius: 50%;
+      box-shadow: 0 0 6px #fff, 0 0 12px rgba(180, 210, 255, 0.6);
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translate3d(0, 0, 0); opacity: 1; }
+      100% { transform: translate3d(-100px, 100vh, 0); opacity: 0; }
+    }
+    .starfall span:nth-child(1)  { left: 10%; animation-duration: 8s;    animation-delay: 0s; }
+    .starfall span:nth-child(2)  { left: 20%; animation-duration: 10s;   animation-delay: 1s; }
+    .starfall span:nth-child(3)  { left: 30%; animation-duration: 7s;    animation-delay: 2s; }
+    .starfall span:nth-child(4)  { left: 40%; animation-duration: 12s;   animation-delay: 0.5s; }
+    .starfall span:nth-child(5)  { left: 50%; animation-duration: 9s;    animation-delay: 3s; }
+    .starfall span:nth-child(6)  { left: 60%; animation-duration: 11s;   animation-delay: 1.2s; }
+    .starfall span:nth-child(7)  { left: 70%; animation-duration: 8.5s;  animation-delay: 2.1s; }
+    .starfall span:nth-child(8)  { left: 80%; animation-duration: 9.5s;  animation-delay: 0.8s; }
+    .starfall span:nth-child(9)  { left: 90%; animation-duration: 10.5s; animation-delay: 1.5s; }
+    .starfall span:nth-child(10) { left: 5%;  animation-duration: 7.5s;  animation-delay: 2.5s; }
+    .starfall span:nth-child(11) { left: 15%; animation-duration: 9.2s;  animation-delay: 0.3s; }
+    .starfall span:nth-child(12) { left: 25%; animation-duration: 11.5s; animation-delay: 1.8s; }
+    .starfall span:nth-child(13) { left: 35%; animation-duration: 8.2s;  animation-delay: 2.8s; }
+    .starfall span:nth-child(14) { left: 55%; animation-duration: 10.8s; animation-delay: 0.6s; }
+    .starfall span:nth-child(15) { left: 75%; animation-duration: 7.8s;  animation-delay: 3.2s; }
+    .starfall span:nth-child(16) { left: 85%; animation-duration: 9.8s;  animation-delay: 1.1s; }
+    header, main, footer { position: relative; z-index: 1; }
+    header {
+      background: rgba(10, 16, 28, 0.72); color: var(--text); padding: 2.25rem 2rem;
+      text-align: center; backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+    header h1 a { color: var(--text); text-decoration: none; }
+    header h1::after {
+      content: ""; display: block; width: 2.5rem; height: 1px;
+      background: var(--gold); margin: 0.6rem auto 0;
+    }
+    header p { color: var(--dim); font-size: 0.95rem; }
+    main { flex: 1; max-width: 800px; margin: 2rem auto; padding: 0 1rem; width: 100%; }
+    .back-link { display: inline-block; margin-bottom: 1rem; color: var(--gold); text-decoration: none; font-size: 0.9rem; font-family: var(--mono); }
+    .back-link:hover { text-decoration: underline; }
+    .card {
+      background: rgba(14, 22, 38, 0.92);
+      border: 1px solid var(--line);
+      border-left: 2px solid rgba(230, 192, 123, 0.4);
+      border-radius: 6px;
+      padding: 2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+    }
+    article h1 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: 0.4rem; color: var(--text); font-weight: 600; }
+    article h1::after { content: ""; display: block; width: 2.5rem; height: 1px; background: var(--gold); margin: 0.6rem 0 0; }
+    .article-meta { color: var(--faint); font-family: var(--mono); font-size: 0.8rem; margin-bottom: 1.25rem; }
+    .article-meta::before { content: "✦ "; color: var(--gold); }
+    article h2 { font-family: var(--serif); font-size: 1.2rem; margin: 1.75rem 0 0.5rem; color: var(--text); font-weight: 600; }
+    article p { line-height: 1.8; margin-bottom: 0.75rem; color: var(--body); }
+    article a { color: var(--gold); }
+    article ul, article ol { margin: 0.5rem 0 0.75rem 1.25rem; line-height: 1.8; color: var(--body); }
+    article li { margin-bottom: 0.25rem; }
+    article li::marker { color: var(--gold); }
+    article strong { color: var(--text); }
+    article code { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.06); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; color: var(--gold); font-family: var(--mono); }
+    article h3 { font-family: var(--serif); font-size: 1.08rem; margin: 1.5rem 0 0.4rem; color: var(--text); font-weight: 600; }
+    article pre { background: var(--ink-deep); color: var(--body); padding: 1rem; border-radius: 6px; border: 1px solid var(--line); overflow-x: auto; margin: 0.75rem 0; font-size: 0.85rem; line-height: 1.6; font-family: var(--mono); }
+    article pre code { background: none; padding: 0; border-radius: 0; color: var(--body); font-size: 0.85rem; }
+    blockquote {
+      border-left: 3px solid var(--gold); padding: 0.5rem 1rem; margin: 0.75rem 0;
+      background: rgba(255, 255, 255, 0.04); color: var(--dim); border-radius: 0 4px 4px 0;
+    }
+    figure { margin: 0.5rem 0 1.5rem; text-align: center; }
+    figure img { max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4); border: 1px solid var(--line); }
+    figcaption { color: var(--faint); font-size: 0.85rem; margin-top: 0.5rem; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+    th, td { border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 0.75rem; text-align: left; color: var(--body); }
+    th { background: rgba(255, 255, 255, 0.05); color: var(--text); font-family: var(--serif); }
+    footer {
+      background: rgba(10, 16, 28, 0.72); color: var(--faint); text-align: center;
+      padding: 1.5rem; font-size: 0.85rem; backdrop-filter: blur(6px);
+      border-top: 1px solid var(--line);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<div class="starfall" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<header>
+  <h1><a href="../../../../index.html">WuDiYage's Blog</a></h1>
+  <p>从零了解AI(专业向非科普向)</p>
+</header>
+
+<main>
+  <a class="back-link" href="../../../../index.html">← 返回首页</a>
+  <article class="card">
+    <h1>从零了解AI(专业向非科普向)</h1>
+    <p class="article-meta">2026-10-15</p>
+    <p>这篇文章不写「AI 就像会学习的孩子」这类比喻。假设你已有编程或工程背景，我们直接从底层建立一套可以一路往下钻的认知框架：AI 到底在解决什么问题、靠什么数学、以及那些高频名词之间的真实关系。</p>
+
+    <h2>1. 先放下「智能」，把它看成函数拟合</h2>
+    <p>机器学习（Machine Learning）的全部核心可以压缩成一句话：<strong>从数据中学习一个函数</strong>。</p>
+    <p>形式化地讲，监督学习（Supervised Learning）给你一组带标签的样本，目标是找一个由参数 <code>θ</code> 决定的函数 <code>f_θ</code>，让它在没见过的输入上也能给出接近真实的输出。这件事被写成一个优化问题：</p>
+    <pre><code>θ* = argmin_θ  (1/n) Σ L( f_θ(x_i), y_i )</code></pre>
+    <p>其中 <code>L</code> 是损失函数（loss function），衡量「预测值」和「真实值」差多少。图像分类、语音识别、机器翻译、下一个词预测……无论任务看起来多不同，最后都归结到这个形式。</p>
+    <p>由此可以拆出机器学习的三个要素：</p>
+    <ul>
+      <li><strong>模型（假设空间）</strong>：<code>f_θ</code> 长什么样，能表达多复杂的函数；</li>
+      <li><strong>损失函数</strong>：怎么量化「错」；</li>
+      <li><strong>优化算法</strong>：怎么在参数空间里找到让损失最小的 <code>θ</code>。</li>
+    </ul>
+
+    <h2>2. 监督学习的三个支柱：表示、损失、优化</h2>
+    <ul>
+      <li><strong>表示（Representation）</strong>：<code>f_θ</code> 的结构。最简的是线性模型 <code>f(x) = Wx + b</code>；把多个这样的层叠起来并插入非线性激活函数，就得到神经网络。所谓「深度」，就是更多层的函数复合。</li>
+      <li><strong>损失（Loss）</strong>：回归常用均方误差（MSE），分类常用交叉熵（Cross-Entropy）。它必须可微，因为要靠梯度来优化。</li>
+      <li><strong>优化（Optimization）</strong>：主流是梯度下降（Gradient Descent）及其变体（<code>SGD</code>、<code>Adam</code>）。关键洞察是反向传播（Backpropagation）——它不是什么玄学，就是<strong>链式法则</strong>：把输出端的误差逐层反着传回每一层，从而算出每个参数的梯度。</li>
+    </ul>
+    <blockquote>一句话记住：模型决定「能表达什么」，损失决定「往哪个方向改」，优化决定「怎么改」。</blockquote>
+
+    <h2>3. 泛化与过拟合：机器学习的核心矛盾</h2>
+    <p>机器学习的目标不是把训练集背下来，而是对<strong>没见过的数据</strong>也表现好，这叫泛化（Generalization）。</p>
+    <ul>
+      <li><strong>欠拟合</strong>：模型太简单，训练集都学不好；</li>
+      <li><strong>过拟合</strong>：模型记住了训练集的噪声，测试集表现崩；</li>
+      <li><strong>正则化</strong>：在损失里加惩罚项（如 <code>L2</code> 权重衰减、<code>Dropout</code>）抑制过拟合；</li>
+      <li><strong>验证集</strong>：切出一块不参与训练的数据来调超参数、做早停（Early Stopping）。</li>
+    </ul>
+    <p>偏差-方差权衡（Bias-Variance Tradeoff）是理解泛化的经典框架：偏差大说明模型太简单，方差大说明模型对数据扰动太敏感。现代大模型的很多现象（如双下降）其实在挑战这个老框架，但它是入门绕不开的地基。</p>
+
+    <h2>4. 为什么「深度」：表示学习是分水岭</h2>
+    <p>传统机器学习的瓶颈往往不在模型，而在<strong>特征工程</strong>：得靠人手工设计特征（图像的边缘、文本的 <code>n-gram</code>），模型才学得动。</p>
+    <p>深度学习的转折在于<strong>表示学习（Representation Learning）</strong>：让网络自己去学层次化的特征。低层学到边缘、纹理，中层学到部件，高层学到语义概念。这意味着：</p>
+    <ul>
+      <li>手工特征被自动学习取代；</li>
+      <li>层的堆叠带来函数复合，表达能力随深度大幅增长；</li>
+      <li>同一套网络结构能跨任务复用（迁移学习、预训练）。</li>
+    </ul>
+    <p>这正是「深度学习」里「深度」二字的真正含义：不是神秘，而是<strong>组合性</strong>。</p>
+
+    <h2>5. Transformer 与自监督：语言模型的转折</h2>
+    <p>2017 年的 Transformer 改变了整个领域，核心是<strong>注意力机制（Attention）</strong>。直觉只有一句话：输出时，对输入序列的每个位置<strong>加权求和</strong>，权重由「相关性」决定。</p>
+    <pre><code>Attention(Q, K, V) = softmax( Q · K^T / √d_k ) · V</code></pre>
+    <ul>
+      <li><strong>Q（Query）</strong>：当前想查什么；</li>
+      <li><strong>K（Key）</strong>：每个位置能被查的标签；</li>
+      <li><strong>V（Value）</strong>：每个位置携带的实际信息。</li>
+    </ul>
+    <p>它解决了 <code>RNN</code> 难以并行、长距离依赖难处理的问题，成为现代大模型的底座。</p>
+    <p>更大的转折是<strong>自监督预训练（Self-supervised Pretraining）</strong>：用「预测下一个词」这种不需要人工标注的免费信号，在近乎全部互联网文本上训练。配合 <strong>Scaling Law</strong>——模型规模、数据量、算力与性能之间呈现可预测的幂律关系——大模型（LLM）才成为可能，并表现出「涌现能力」（Emergence）。</p>
+
+    <h2>6. 一条可执行的学习路径</h2>
+    <p>如果你真正想进入这个领域，而不是停在「会用 ChatGPT」，建议按这个顺序：</p>
+    <ol>
+      <li><strong>数学地基</strong>：线性代数、微积分（链式法则、梯度）、概率与统计。够用即可，边学边补。</li>
+      <li><strong>教材与课程</strong>：Ian Goodfellow 的《Deep Learning》（花书）当工具书；fast.ai 快速上手；Stanford 的 <code>CS231n</code>（视觉）与 <code>CS224n</code>（NLP）补系统训练。</li>
+      <li><strong>动手</strong>：手写梯度下降 → 用 NumPy 实现一个小网络 → 用 PyTorch 跑通一个 Transformer。不写一遍，概念永远是别人的。</li>
+      <li><strong>读论文</strong>：从《Attention Is All You Need》起步，再顺着综述和引用图往外读。</li>
+    </ol>
+
+    <h2>常见名词速查</h2>
+    <table>
+      <thead>
+        <tr><th>名词</th><th>是什么</th><th>一句话定位</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>机器学习</td><td>从数据学函数的范式</td><td>领域总称</td></tr>
+        <tr><td>深度学习</td><td>用深层网络做表示学习</td><td>机器学习的子集</td></tr>
+        <tr><td>大模型（LLM）</td><td>海量数据 + 参数的自回归语言模型</td><td>深度学习的规模化产物</td></tr>
+        <tr><td>Transformer</td><td>基于注意力的网络架构</td><td>现代底座</td></tr>
+        <tr><td>注意力</td><td>按相关性加权求和</td><td>核心机制</td></tr>
+        <tr><td>预训练 / 微调</td><td>先在大语料学通用，再在任务上适配</td><td>主流范式</td></tr>
+      </tbody>
+    </table>
+
+    <blockquote>
+      一句话心智模型：<br>
+      机器学习 = 用数据拟合一个函数；深度学习 = 用深层网络自动学表示；大模型 = 用自监督 + 规模，把这个函数推到语言与通用能力。
+    </blockquote>
+  </article>
+</main>
+
+<footer>
+  <p>Powered by <a href="https://pages.github.com/">GitHub Pages</a></p>
+</footer>
+
+<!-- live2d 看板娘 -->
+<script src="../../../../live2d-waifu/autoload.js"></script>
+
+</body>
+</html>
+
+

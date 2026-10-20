@@ -1,0 +1,8 @@
+# 正式择日候选。每行一条，分号分隔，# 开头为注释。
+# g_day 和 time 都可以不填。都不填时，比较该月每一天的最佳时辰，给出全月最佳日期和时间。
+# 只填 g_day、不填 time：比较这一天的十二时辰。
+# 都填：按指定钟点排这一天。time 用 24 小时制 HH:MM。
+# 23:00-23:59 为晚子时：时辰仍是子，日柱和日课宜忌按次日。
+# 00:00-00:59 为早子时：时辰是子，日柱按当日。
+# event_type：marry 嫁娶 / open 开市 / earth 动土 / travel 出行
+g_year=2026;g_month=10;zhushi_shengxiao=狗;event_type=marry;house_dir=坐北朝南

@@ -1,0 +1,9 @@
+{
+  "name": "择日",
+  "short_name": "择日",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#16302B",
+  "theme_color": "#16302B",
+  "lang": "zh-CN"
+}
