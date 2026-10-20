@@ -66,11 +66,13 @@ function render(payload) {
   });
   if (payload.use_almanac) {
     const span = document.createElement("span");
+    span.className = "score-head";
     span.textContent = "通书";
     cols.appendChild(span);
   }
   if (payload.use_bazi) {
     const span = document.createElement("span");
+    span.className = "score-head";
     span.textContent = "八字";
     cols.appendChild(span);
   }

@@ -200,6 +200,10 @@ input:focus, select:focus, button:focus-visible, summary:focus-visible {
   font-size: 13px;
 }
 
+.cols .score-head {
+  text-align: right;
+}
+
 .slip {
   margin: 0 0 8px;
   background: var(--paper);
